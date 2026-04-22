@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Cumpleaños Chavelita 💖</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI',sans-serif;
+}
+
+body{
+  overflow:hidden;
+  height:100vh;
+  background:#000;
+}
+
+.bg{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:linear-gradient(-45deg,#ff4b7d,#6a11cb,#2575fc,#ff9a9e);
+  background-size:400% 400%;
+  animation:gradient 10s ease infinite;
+  z-index:-2;
+}
+
+@keyframes gradient{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+.particle{
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  opacity:0.6;
+  animation:float linear infinite;
+}
+
+@keyframes float{
+  from{transform:translateY(100vh) scale(0);}
+  to{transform:translateY(-10vh) scale(1);}
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  opacity:0;
+  transform:scale(0.9);
+  transition:1s ease;
+  color:white;
+  padding:20px;
+}
+
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+h1{
+  font-size:2.6em;
+  text-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+p{
+  font-size:1.3em;
+  margin-top:10px;
+  opacity:0.95;
+}
+
+button{
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:15px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff4b7d;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+  z-index:10;
+}
+
+.heart{
+  position:fixed;
+  font-size:20px;
+  bottom:-20px;
+  animation:up linear infinite;
+}
+
+@keyframes up{
+  to{transform:translateY(-110vh) rotate(360deg);}
+}
+
+.name{
+  font-size:2.2em;
+  margin-top:10px;
+  color:#fff;
+  text-shadow:0 0 20px pink;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<audio id="music" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="slide active">
+  <h1>🎉 ¡Feliz cumpleaños Chavelita! 🎉</h1>
+  <p>Hoy celebramos lo increíble que eres 💖</p>
+  <p>y lo feliz que haces a quienes te rodean ✨</p>
+</div>
+
+<div class="slide">
+  <h1>🌸 Betzabé 🌸</h1>
+  <p>Que tu vida siempre esté llena de luz ✨</p>
+  <p>de sonrisas sinceras 😊</p>
+  <p>y momentos hermosos 💫</p>
+</div>
+
+<div class="slide">
+  <h1>🎂 Un nuevo año 🎂</h1>
+  <p>Que cada día sea una nueva oportunidad</p>
+  <p>para cumplir tus sueños 💕</p>
+  <p>y ser aún más feliz 🌟</p>
+</div>
+
+<div class="slide">
+  <h1>💖 Para ti 💖</h1>
+  <p>Eres una persona única 🌹</p>
+  <p>valiosa, especial y muy querida 💫</p>
+  <p>nunca olvides lo importante que eres 💝</p>
+</div>
+
+<div class="slide">
+  <h1>🎁 Disfruta tu día 🎁</h1>
+  <p>Que hoy esté lleno de amor 💞</p>
+  <p>de risas y alegría 🎊</p>
+  <p>y de momentos inolvidables 💫</p>
+</div>
+
+<div class="slide">
+  <h1>💌 Con todo mi cariño 💌</h1>
+  <p>Este detalle es para ti</p>
+  <p>porque mereces lo mejor 💖</p>
+  <p>hoy y siempre 🌹</p>
+</div>
+
+<div class="slide">
+  <h1>❤️ Para ti ❤️</h1>
+  <p>Con todo mi cariño y amor 💖</p>
+  <p>eres muy especial en mi vida ✨</p>
+  <p>y siempre deseo tu felicidad de: 💕</p>
+  <div class="name">Humberto Márquez</div>
+  <p>que te ama muchísimo ❤️</p>
+</div>
+
+<button onclick="start()">▶ Iniciar</button>
+
+<script>
+let i=0;
+const slides=document.querySelectorAll('.slide');
+let started=false;
+
+function show(n){
+  slides.forEach(s=>s.classList.remove('active'));
+  slides[n].classList.add('active');
+}
+
+function start(){
+  if(started) return;
+  started=true;
+
+  document.getElementById('music').play();
+
+  setInterval(()=>{
+    i=(i+1)%slides.length;
+    show(i);
+  },5500);
+
+  createHearts();
+  createParticles();
+}
+
+function createHearts(){
+  for(let i=0;i<35;i++){
+    let h=document.createElement('div');
+    h.className='heart';
+    h.innerHTML='❤️';
+    h.style.left=Math.random()*100+'vw';
+    h.style.animationDuration=(Math.random()*4+3)+'s';
+    document.body.appendChild(h);
+  }
+}
+
+function createParticles(){
+  for(let i=0;i<50;i++){
+    let p=document.createElement('div');
+    p.className='particle';
+    p.style.left=Math.random()*100+'vw';
+    p.style.animationDuration=(Math.random()*6+3)+'s';
+    document.body.appendChild(p);
+  }
+}
+</script>
+
+</body>
+</html>
